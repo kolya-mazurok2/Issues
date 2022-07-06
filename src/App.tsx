@@ -1,20 +1,22 @@
-import { useEffect } from 'react';
-import { find, findAll } from './services/http/issues/methods';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Header from './components/UI/Header';
+import Home from './pages/Home';
+import HomeWrapper from './pages/HomeWrapper';
 
 const App = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await findAll();
+  const theme = createTheme();
 
-      const responseOne = await find(3);
+  return (
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Header />
 
-      console.log(response, responseOne);
-    };
-
-    fetchData();
-  }, []);
-
-  return <div className="App">GitHub Issues</div>;
+        <HomeWrapper>
+          <Home />
+        </HomeWrapper>
+      </div>
+    </ThemeProvider>
+  );
 };
 
 export default App;
