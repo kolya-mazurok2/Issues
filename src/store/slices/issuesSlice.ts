@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { findAll } from '../../services/http/issues/methods';
+import { isEmpty } from 'lodash';
+import { findAll } from '../../services/http/issues';
 import { Issue } from '../../types';
 
 interface State {
@@ -14,10 +15,27 @@ const initialState: State = {
   success: true,
 };
 
-export const findIssues = createAsyncThunk('issues/findIssues', async (): Promise<Issue[]> => {
-  const response = await findAll();
-  return response.data;
-});
+interface FindIssuesParams {
+  creator?: string;
+  labels?: string;
+  assignee?: string;
+}
+
+export const findIssues = createAsyncThunk(
+  'issues/findIssues',
+  async (params: FindIssuesParams = {}): Promise<Issue[]> => {
+    if (isEmpty(params.creator)) {
+      delete params.creator;
+    }
+
+    if (isEmpty(params.assignee)) {
+      delete params.assignee;
+    }
+
+    const response = await findAll(params);
+    return response.data;
+  }
+);
 
 const issuesSlice = createSlice({
   name: 'issues',
