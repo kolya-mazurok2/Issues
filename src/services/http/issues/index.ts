@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Issue } from '../../../types';
 
 const DEFAULT_HEADERS = {
   Accept: 'application/vnd.github+json',
@@ -7,7 +8,7 @@ const DEFAULT_HEADERS = {
 
 export interface HttpResponse {
   success: boolean;
-  data: object[];
+  data: Issue[];
   message: string;
 }
 

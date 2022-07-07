@@ -19,13 +19,15 @@ export const DEFAULT_LABEL: Label = {
 export interface Assignee {
   id: number;
   login: string;
-  avatarUrl: string;
+  avatar_url: string;
+  url: string;
 }
 
 export const DEFAULT_ASSIGNEE: Assignee = {
   id: 1,
   login: 'developer1',
-  avatarUrl: 'https://avatars.githubusercontent.com/u/38666510',
+  avatar_url: '',
+  url: '',
 };
 
 export interface Issue {
@@ -34,10 +36,11 @@ export interface Issue {
   body: string;
   state: State;
   number: number;
+  assignee: Assignee;
   assignees: Assignee[];
   labels: Label[];
-  createdAt: moment.Moment;
-  updatedAt: moment.Moment;
+  created_at: string;
+  updated_at: string;
 }
 
 export const DEFAULT_ISSUE: Issue = {
@@ -46,8 +49,9 @@ export const DEFAULT_ISSUE: Issue = {
   body: 'Issue #1 description',
   state: 'open',
   number: 1,
+  assignee: DEFAULT_ASSIGNEE,
   assignees: [],
   labels: [],
-  createdAt: moment('2022-07-05T08:14:10Z'),
-  updatedAt: moment('2022-07-05T08:27:23Z'),
+  created_at: moment().toString(),
+  updated_at: moment().toString(),
 };
