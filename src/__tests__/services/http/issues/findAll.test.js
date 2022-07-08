@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios';
-import axiosInstance from '../../../../services/http';
-import { DEFAULT_HTTP_RESPONSE, findAll } from '../../../../services/http/issues';
+import axiosInstance from '../../../../services/http/issues';
+import { DEFAULT_HTTP_RESPONSE, findAll } from '../../../../services/http/issues/issues';
 
-jest.mock('../../../../services/http');
+jest.mock('../../../../services/http/issues');
 
 describe('Fetchs issue list', () => {
   afterEach(() => {

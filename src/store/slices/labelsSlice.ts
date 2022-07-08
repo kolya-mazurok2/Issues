@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { findAll } from '../../services/http/labels';
+import { findAll } from '../../services/http/issues/labels';
 import { Label } from '../../types';
 
 interface State {

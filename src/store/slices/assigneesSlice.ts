@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { findAll } from '../../services/http/assignees';
+import { findAll } from '../../services/http/issues/assignees';
 import { Assignee } from '../../types';
 
 interface State {

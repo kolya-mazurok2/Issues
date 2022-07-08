@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState } from 'react';
-import { Assignee, Label } from '../../types';
+import { Assignee, Label, State } from '../../types';
 
 const MenuProps = {
   PaperProps: {
@@ -15,6 +15,7 @@ const MenuProps = {
 interface Props {
   assignees: Assignee[];
   labels: Label[];
+  onStateChange: (value: State) => void;
   onAuthorChange: (value: string) => void;
   onLabelsChange: (value: string[]) => void;
   onAssigneeChange: (value: string) => void;
@@ -23,13 +24,20 @@ interface Props {
 const IssuesFilter = ({
   assignees,
   labels,
+  onStateChange,
   onAuthorChange,
   onLabelsChange,
   onAssigneeChange,
 }: Props) => {
+  const [state, setState] = useState<State>('open');
   const [author, setAuthor] = useState('');
   const [labelNames, setLabelNames] = useState<string[]>([]);
   const [assignee, setAssignee] = useState('');
+
+  const handleStateChange = (state: State) => {
+    setState(state);
+    onStateChange(state);
+  };
 
   const handleAuthorChange = (value: string) => {
     setAuthor(value);
@@ -48,6 +56,25 @@ const IssuesFilter = ({
 
   return (
     <Box typography="form">
+      <FormControl sx={{ minWidth: 250 }}>
+        <InputLabel>State</InputLabel>
+
+        <Select
+          label="State"
+          MenuProps={MenuProps}
+          value={state}
+          onChange={(event) => {
+            handleStateChange(event.target.value as State);
+          }}
+        >
+          <MenuItem value="all">All</MenuItem>
+
+          <MenuItem value="open">Open</MenuItem>
+
+          <MenuItem value="closed">Closed</MenuItem>
+        </Select>
+      </FormControl>
+
       {assignees.length > 0 && (
         <FormControl sx={{ minWidth: 250 }}>
           <InputLabel>Author</InputLabel>

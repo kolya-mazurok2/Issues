@@ -9,12 +9,12 @@ export const getTimeSince = (date: string): string => {
   if (seconds < 1) {
     return 'just now';
   } else if (seconds < 60) {
-    return `${dateNow.diff(dateObj, 'seconds')} seconds`;
+    return `${dateNow.diff(dateObj, 'seconds')} second(s)`;
   } else if (seconds < 3600) {
-    return `${dateNow.diff(dateObj, 'minutes')} minutes`;
+    return `${dateNow.diff(dateObj, 'minutes')} minute(s)`;
   } else if (seconds < 86400) {
-    return `${dateNow.diff(dateObj, 'hours')} hours`;
+    return `${dateNow.diff(dateObj, 'hours')} hour(s)`;
   } else {
-    return `${dateNow.diff(dateObj, 'days')} days`;
+    return `${dateNow.diff(dateObj, 'days')} day(s)`;
   }
 };
