@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Issue } from '../../types';
-import axiosInstance from './';
+import { Issue, State } from '../../../types';
+import axiosIssues from './';
 
 export interface HttpResponse {
   success: boolean;
@@ -18,12 +18,23 @@ interface FindAllParams {
   creator?: string;
   labels?: string;
   assignee?: string;
+  state?: State;
+  per_page?: number;
+  page?: number;
 }
 
-export const findAll = async (params: FindAllParams = {}): Promise<HttpResponse> => {
+const DEFAULT_FIND_ALL_PARAMS: FindAllParams = {
+  state: 'all',
+  per_page: 30,
+  page: 1,
+};
+
+export const findAll = async (
+  params: FindAllParams = DEFAULT_FIND_ALL_PARAMS
+): Promise<HttpResponse> => {
   try {
-    const response = await axiosInstance.get('issues', {
-      params,
+    const response = await axiosIssues.get('issues', {
+      params: { ...DEFAULT_FIND_ALL_PARAMS, ...params },
     });
 
     return { ...DEFAULT_HTTP_RESPONSE, data: response.data };
@@ -38,7 +49,7 @@ export const findAll = async (params: FindAllParams = {}): Promise<HttpResponse>
 
 export const find = async (id: number): Promise<HttpResponse> => {
   try {
-    const response = await axiosInstance.get(`issues/${id}`);
+    const response = await axiosIssues.get(`issues/${id}`);
 
     return { ...DEFAULT_HTTP_RESPONSE, data: [response.data] };
   } catch (err) {

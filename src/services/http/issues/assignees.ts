@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { Label } from '../../types';
+import { Assignee } from '../../../types';
 import axiosInstance from './';
 
 export interface HttpResponse {
   success: boolean;
-  data: Label[];
+  data: Assignee[];
   message: string;
 }
 
@@ -16,7 +16,7 @@ export const DEFAULT_HTTP_RESPONSE: HttpResponse = {
 
 export const findAll = async (): Promise<HttpResponse> => {
   try {
-    const response = await axiosInstance.get('/labels');
+    const response = await axiosInstance.get('/assignees');
 
     return { ...DEFAULT_HTTP_RESPONSE, data: response.data };
   } catch (err) {

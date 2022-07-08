@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export type State = 'open' | 'closed';
+export type State = 'all' | 'open' | 'closed';
 
 export interface Label {
   id: number;

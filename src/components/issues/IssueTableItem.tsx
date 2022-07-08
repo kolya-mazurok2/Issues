@@ -14,12 +14,12 @@ const IssueTableItem = ({ item }: Props) => {
       <Box className="main-info">
         <Typography variant="subtitle1">{item.title}</Typography>
 
-        {item.assignees.length && <AssigneeList assignees={item.assignees} />}
+        {item.assignees.length > 0 && <AssigneeList assignees={item.assignees} />}
       </Box>
       <IssueStatus
         status={item.state}
         number={item.number}
-        authorName={item.assignee.login}
+        authorName={item.assignee ? item.assignee.login : undefined}
         createdAt={item.created_at}
         updatedAt={item.updated_at}
       />
