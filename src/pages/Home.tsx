@@ -40,22 +40,26 @@ const Home = () => {
   });
 
   const handleStateChange = (state: State) => {
+    handlePageChange(1);
     setFilterCriterias({ ...filterCriterias, state: state });
   };
 
   const handleAuthorChange = (author: string) => {
+    handlePageChange(1);
     setFilterCriterias({ ...filterCriterias, creator: author });
   };
 
   const handleLabelsChange = (labels: string[]) => {
+    handlePageChange(1);
     setFilterCriterias({ ...filterCriterias, labels: labels.join() });
   };
 
   const handleAssigneeChange = (assignee: string) => {
+    handlePageChange(1);
     setFilterCriterias({ ...filterCriterias, assignee });
   };
 
-  const pageChangeHandler = (page: number) => {
+  const handlePageChange = (page: number) => {
     setPage(page);
   };
 
@@ -93,7 +97,7 @@ const Home = () => {
             className="pagination"
             count={totalPages}
             onChange={(event, page) => {
-              pageChangeHandler(page);
+              handlePageChange(page);
             }}
           />
         )}

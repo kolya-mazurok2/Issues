@@ -1,11 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isEmpty } from 'lodash';
-import { findAll } from '../../services/http/issues/issues';
+import {
+  find,
+  findAll,
+  updateAssignees,
+  updateLabels,
+  updateTitle,
+} from '../../services/http/issues/issues';
 import { DEFAULT_FIND_ALL_PARAMS, findAll as searchAll } from '../../services/http/search/methods';
 import { Issue, State as StateType } from '../../types';
 import { constructSearchQuery } from '../../utils/searchQuery';
 
 interface State {
+  entity: Issue | null;
   entities: Issue[];
   totalEntities: number;
   loading: boolean;
@@ -13,9 +20,10 @@ interface State {
 }
 
 const initialState: State = {
+  entity: null,
   entities: [],
   totalEntities: 0,
-  loading: false,
+  loading: true,
   success: true,
 };
 
@@ -86,6 +94,53 @@ export const findIssuesComplex = createAsyncThunk(
   }
 );
 
+export const findIssue = createAsyncThunk(
+  'issues/findIssue',
+  async (id: number): Promise<Issue | null> => {
+    const response = await find(id);
+    return response.data.length ? response.data[0] : null;
+  }
+);
+
+interface UpdateIssueAssigneesParams {
+  id: number;
+  assignees: string[];
+}
+
+export const updateIssueAssignees = createAsyncThunk(
+  'issues/updateIssueAssignees',
+  async ({ id, assignees }: UpdateIssueAssigneesParams): Promise<Issue | null> => {
+    const response = await updateAssignees(id, assignees);
+    return response.data.length ? response.data[0] : null;
+  }
+);
+
+interface UpdateIssueLabelsParams {
+  id: number;
+  labels: string[];
+}
+
+export const updateIssueLabels = createAsyncThunk(
+  'issues/updateIssueLabels',
+  async ({ id, labels }: UpdateIssueLabelsParams): Promise<Issue | null> => {
+    const response = await updateLabels(id, labels);
+    return response.data.length ? response.data[0] : null;
+  }
+);
+
+interface UpdateIssueTitleParams {
+  id: number;
+  title: string;
+}
+
+export const updateIssueTitle = createAsyncThunk(
+  'issues/updateTitle',
+  async ({ id, title }: UpdateIssueTitleParams): Promise<Issue | null> => {
+    const response = await updateTitle(id, title);
+    return response.data.length ? response.data[0] : null;
+  }
+);
+
 const issuesSlice = createSlice({
   name: 'issues',
   initialState: initialState,
@@ -127,6 +182,58 @@ const issuesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(findIssuesComplex.rejected, (state) => {
+      state.loading = false;
+      state.success = false;
+    });
+
+    builder.addCase(findIssue.fulfilled, (state, payload) => {
+      state.loading = false;
+      state.success = true;
+      state.entity = payload.payload;
+    });
+    builder.addCase(findIssue.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(findIssue.rejected, (state) => {
+      state.loading = false;
+      state.success = false;
+    });
+
+    builder.addCase(updateIssueAssignees.fulfilled, (state, payload) => {
+      state.loading = false;
+      state.success = true;
+      state.entity = payload.payload;
+    });
+    builder.addCase(updateIssueAssignees.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateIssueAssignees.rejected, (state) => {
+      state.loading = false;
+      state.success = false;
+    });
+
+    builder.addCase(updateIssueLabels.fulfilled, (state, payload) => {
+      state.loading = false;
+      state.success = true;
+      state.entity = payload.payload;
+    });
+    builder.addCase(updateIssueLabels.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateIssueLabels.rejected, (state) => {
+      state.loading = false;
+      state.success = false;
+    });
+
+    builder.addCase(updateIssueTitle.fulfilled, (state, payload) => {
+      state.loading = false;
+      state.success = true;
+      state.entity = payload.payload;
+    });
+    builder.addCase(updateIssueTitle.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateIssueTitle.rejected, (state) => {
       state.loading = false;
       state.success = false;
     });

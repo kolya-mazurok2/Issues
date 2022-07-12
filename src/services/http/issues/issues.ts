@@ -60,3 +60,54 @@ export const find = async (id: number): Promise<HttpResponse> => {
     };
   }
 };
+
+export const updateAssignees = async (
+  id: number,
+  assignees: string[] = []
+): Promise<HttpResponse> => {
+  try {
+    const response = await axiosIssues.patch(`issues/${id}`, {
+      assignees: assignees,
+    });
+
+    return { ...DEFAULT_HTTP_RESPONSE, data: [response.data] };
+  } catch (err) {
+    return {
+      ...DEFAULT_HTTP_RESPONSE,
+      success: false,
+      message: axios.isAxiosError(err) ? err.message : 'Something went wrong',
+    };
+  }
+};
+
+export const updateLabels = async (id: number, labels: string[] = []): Promise<HttpResponse> => {
+  try {
+    const response = await axiosIssues.patch(`issues/${id}`, {
+      labels: labels,
+    });
+
+    return { ...DEFAULT_HTTP_RESPONSE, data: [response.data] };
+  } catch (err) {
+    return {
+      ...DEFAULT_HTTP_RESPONSE,
+      success: false,
+      message: axios.isAxiosError(err) ? err.message : 'Something went wrong',
+    };
+  }
+};
+
+export const updateTitle = async (id: number, title: string): Promise<HttpResponse> => {
+  try {
+    const response = await axiosIssues.patch(`issues/${id}`, {
+      title: title,
+    });
+
+    return { ...DEFAULT_HTTP_RESPONSE, data: [response.data] };
+  } catch (err) {
+    return {
+      ...DEFAULT_HTTP_RESPONSE,
+      success: false,
+      message: axios.isAxiosError(err) ? err.message : 'Something went wrong',
+    };
+  }
+};
