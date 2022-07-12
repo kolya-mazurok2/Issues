@@ -1,8 +1,8 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Routes } from 'react-router-dom';
 import Header from './components/UI/Header';
-import Home from './pages/Home';
-import HomeWrapper from './pages/HomeWrapper';
+import { appRouteElements } from './routing';
 import store from './store';
 
 const App = () => {
@@ -12,11 +12,11 @@ const App = () => {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <div className="App">
-          <Header />
+          <BrowserRouter>
+            <Header />
 
-          <HomeWrapper>
-            <Home />
-          </HomeWrapper>
+            <Routes>{appRouteElements}</Routes>
+          </BrowserRouter>
         </div>
       </ThemeProvider>
     </Provider>

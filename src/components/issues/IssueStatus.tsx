@@ -1,10 +1,11 @@
 import { Typography } from '@mui/material';
 import { State } from '../../types';
 import { getTimeSince } from '../../utils/date';
+import PrefixedNumber from '../PrefixedNumber';
 
 interface Props {
   status: State;
-  number: number;
+  number?: number;
   authorName?: string;
   createdAt: string;
   updatedAt: string;
@@ -14,10 +15,11 @@ const IssueStatus = ({ status, number, authorName, createdAt, updatedAt }: Props
   const byAuthor = authorName ? `by ${authorName}` : '';
 
   return (
-    <>
+    <div className="issue-state-info">
       {status === 'open' && (
         <Typography variant="subtitle2">
-          #{number} opened {getTimeSince(createdAt)} ago {byAuthor}
+          {number && <PrefixedNumber number={number} />} opened {getTimeSince(createdAt)} ago{' '}
+          {byAuthor}
         </Typography>
       )}
       {status === 'closed' && (
@@ -25,7 +27,7 @@ const IssueStatus = ({ status, number, authorName, createdAt, updatedAt }: Props
           #{number} {byAuthor} was closed {getTimeSince(updatedAt)}
         </Typography>
       )}
-    </>
+    </div>
   );
 };
 
