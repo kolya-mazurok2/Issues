@@ -23,8 +23,9 @@ const IssueTableItem = ({ item }: Props) => {
         status={item.state}
         number={item.number}
         authorName={item.assignee ? item.assignee.login : undefined}
+        closedBy={item.closed_by && item.closed_by.login}
         createdAt={item.created_at}
-        updatedAt={item.updated_at}
+        closedAt={item.closed_at}
       />
     </div>
   );

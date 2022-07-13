@@ -7,11 +7,12 @@ interface Props {
   status: State;
   number?: number;
   authorName?: string;
+  closedBy?: string;
   createdAt: string;
-  updatedAt: string;
+  closedAt?: string;
 }
 
-const IssueStatus = ({ status, number, authorName, createdAt, updatedAt }: Props) => {
+const IssueStatus = ({ status, number, authorName, closedBy, createdAt, closedAt }: Props) => {
   const byAuthor = authorName ? `by ${authorName}` : '';
 
   return (
@@ -24,7 +25,8 @@ const IssueStatus = ({ status, number, authorName, createdAt, updatedAt }: Props
       )}
       {status === 'closed' && (
         <Typography variant="subtitle2">
-          #{number} {byAuthor} was closed {getTimeSince(updatedAt)}
+          {number && `#${number}`} {closedBy && `by ${closedBy}`}{' '}
+          {closedAt && `was closed ${getTimeSince(closedAt)}`}
         </Typography>
       )}
     </div>
