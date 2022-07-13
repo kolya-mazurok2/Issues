@@ -3,6 +3,8 @@ import { Box } from '@mui/system';
 import { PATH_ISSUES } from '../../routing/pathes';
 import { Issue } from '../../types';
 import AssigneeAvatarList from '../assignees/AssigneeAvatarList';
+import LabelList from '../labels/LabelList';
+import LabelListWrapper from '../labels/LabelListWrapper';
 import IssueStatus from './IssueStatus';
 
 interface Props {
@@ -15,6 +17,10 @@ const IssueTableItem = ({ item }: Props) => {
       <Box className="main-info">
         <Typography variant="subtitle1">
           <Link href={`${PATH_ISSUES}${item.number}`}>{item.title}</Link>
+
+          <LabelListWrapper display="inline">
+            <LabelList labels={item.labels} className="label-list label-list_inline" />
+          </LabelListWrapper>
         </Typography>
 
         {item.assignees.length > 0 && <AssigneeAvatarList assignees={item.assignees} />}
@@ -22,7 +28,7 @@ const IssueTableItem = ({ item }: Props) => {
       <IssueStatus
         status={item.state}
         number={item.number}
-        authorName={item.assignee ? item.assignee.login : undefined}
+        authorName={item.user ? item.user.login : undefined}
         closedBy={item.closed_by && item.closed_by.login}
         createdAt={item.created_at}
         closedAt={item.closed_at}

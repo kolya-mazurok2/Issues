@@ -3,11 +3,12 @@ import { Label } from '../../types';
 
 interface Props {
   labels?: Label[];
+  className?: string;
 }
 
-const LabelList = ({ labels = [] }: Props) => {
+const LabelList = ({ labels = [], className = '' }: Props) => {
   return labels.length ? (
-    <List className="label-list">
+    <List className={className}>
       {labels.map((label) => {
         return (
           <ListItem

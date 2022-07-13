@@ -14,25 +14,18 @@ const NewIssue = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const newIssueCreated = useSelector<RootState, boolean | undefined>(
-    (state) => state.issues.success
-  );
   const assignees = useSelector<RootState, Assignee[]>((state) => state.assignees.entities);
   const labels = useSelector<RootState, Label[]>((state) => state.labels.entities);
 
   const handleSubmit = async (newIssue: INewIssue) => {
-    dispatch(createNewIssue(newIssue));
+    await Promise.resolve([dispatch(createNewIssue(newIssue))]);
+
+    navigate(PATH_HOME, { replace: true });
   };
 
   useEffect(() => {
     Promise.all([dispatch(findAssignees()), dispatch(findLabels())]);
   }, []);
-
-  useEffect(() => {
-    if (newIssueCreated) {
-      navigate(PATH_HOME, { replace: true });
-    }
-  }, [newIssueCreated]);
 
   return (
     <Box className="page page--new-issue">
