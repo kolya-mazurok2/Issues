@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Issue, State } from '../../../types';
+import { Issue, NewIssue, State } from '../../../types';
 import axiosIssues from './';
 
 export interface HttpResponse {
@@ -101,6 +101,20 @@ export const updateTitle = async (id: number, title: string): Promise<HttpRespon
     const response = await axiosIssues.patch(`issues/${id}`, {
       title: title,
     });
+
+    return { ...DEFAULT_HTTP_RESPONSE, data: [response.data] };
+  } catch (err) {
+    return {
+      ...DEFAULT_HTTP_RESPONSE,
+      success: false,
+      message: axios.isAxiosError(err) ? err.message : 'Something went wrong',
+    };
+  }
+};
+
+export const create = async (newIssue: NewIssue): Promise<HttpResponse> => {
+  try {
+    const response = await axiosIssues.post('issues', newIssue);
 
     return { ...DEFAULT_HTTP_RESPONSE, data: [response.data] };
   } catch (err) {

@@ -2,15 +2,7 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState } from 'react';
 import { Assignee, Label, State } from '../../types';
-
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: 48 * 4.5 + 8,
-      width: 250,
-    },
-  },
-};
+import { SELECT_MENU_PROPS } from '../../utils/mui';
 
 interface Props {
   assignees: Assignee[];
@@ -61,7 +53,7 @@ const IssuesFilter = ({
 
         <Select
           label="State"
-          MenuProps={MenuProps}
+          MenuProps={SELECT_MENU_PROPS}
           value={state}
           onChange={(event) => {
             handleStateChange(event.target.value as State);
@@ -81,7 +73,7 @@ const IssuesFilter = ({
 
           <Select
             label="Author"
-            MenuProps={MenuProps}
+            MenuProps={SELECT_MENU_PROPS}
             value={author}
             onChange={(event) => {
               handleAuthorChange(event.target.value);
@@ -107,7 +99,7 @@ const IssuesFilter = ({
 
           <Select
             label="Labels"
-            MenuProps={MenuProps}
+            MenuProps={SELECT_MENU_PROPS}
             multiple
             value={labelNames}
             onChange={(event) => {
@@ -131,7 +123,7 @@ const IssuesFilter = ({
 
           <Select
             label="Assignee"
-            MenuProps={MenuProps}
+            MenuProps={SELECT_MENU_PROPS}
             value={assignee}
             onChange={(event) => {
               handleAssigneeChange(event.target.value);

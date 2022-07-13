@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isEmpty } from 'lodash';
 import {
+  create,
   find,
   findAll,
   updateAssignees,
@@ -8,23 +9,23 @@ import {
   updateTitle,
 } from '../../services/http/issues/issues';
 import { DEFAULT_FIND_ALL_PARAMS, findAll as searchAll } from '../../services/http/search/methods';
-import { Issue, State as StateType } from '../../types';
+import { Issue, NewIssue, State as StateType } from '../../types';
 import { constructSearchQuery } from '../../utils/searchQuery';
 
 interface State {
   entity: Issue | null;
   entities: Issue[];
   totalEntities: number;
-  loading: boolean;
-  success: boolean;
+  loading?: boolean;
+  success?: boolean;
 }
 
 const initialState: State = {
   entity: null,
   entities: [],
   totalEntities: 0,
-  loading: true,
-  success: true,
+  loading: undefined,
+  success: undefined,
 };
 
 interface FindIssuesParams {
@@ -141,6 +142,14 @@ export const updateIssueTitle = createAsyncThunk(
   }
 );
 
+export const createNewIssue = createAsyncThunk(
+  'issues/create',
+  async (newIssue: NewIssue): Promise<Issue | null> => {
+    const response = await create(newIssue);
+    return response.data.length ? response.data[0] : null;
+  }
+);
+
 const issuesSlice = createSlice({
   name: 'issues',
   initialState: initialState,
@@ -234,6 +243,18 @@ const issuesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(updateIssueTitle.rejected, (state) => {
+      state.loading = false;
+      state.success = false;
+    });
+
+    builder.addCase(createNewIssue.fulfilled, (state) => {
+      state.loading = false;
+      state.success = true;
+    });
+    builder.addCase(createNewIssue.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(createNewIssue.rejected, (state) => {
       state.loading = false;
       state.success = false;
     });
