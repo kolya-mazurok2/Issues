@@ -8,6 +8,7 @@ import NotFound from '../pages/NotFound';
 import NotFoundWrapper from '../pages/NotFoundWrapper';
 import { PATH_HOME, PATH_ISSUES, PATH_ISSUES_NEW, PATH_NOT_FOUND } from './pathes';
 import IssueWrapper from '../pages/issues/IssueWrapper';
+import NewIssueWrapper from '../pages/issues/NewIssueWrapper';
 
 interface IAppRoutes {
   path: string;
@@ -37,7 +38,11 @@ const appRoutes: Array<IAppRoutes> = [
   },
   {
     path: PATH_ISSUES_NEW,
-    element: <NewIssue />,
+    element: (
+      <NewIssueWrapper>
+        <NewIssue />
+      </NewIssueWrapper>
+    ),
   },
   {
     path: PATH_NOT_FOUND,

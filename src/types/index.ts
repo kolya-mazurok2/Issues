@@ -55,3 +55,10 @@ export const DEFAULT_ISSUE: Issue = {
   created_at: moment().toString(),
   updated_at: moment().toString(),
 };
+
+export interface NewIssue {
+  title: string;
+  body?: string;
+  assignees?: string[];
+  labels?: string[];
+}

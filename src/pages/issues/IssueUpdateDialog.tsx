@@ -10,17 +10,7 @@ import {
   Select,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+import { SELECT_MENU_PROPS } from '../../utils/mui';
 
 export type OptionType = '' | 'assignee' | 'label';
 
@@ -72,7 +62,7 @@ const IssueUpdateDialog = ({
                 .filter((inputOption) => selectedOptions.indexOf(inputOption) !== -1)
                 .join(', ')
             }
-            MenuProps={MenuProps}
+            MenuProps={SELECT_MENU_PROPS}
           >
             {inputOptions.map((inputOption, index) => {
               return (
