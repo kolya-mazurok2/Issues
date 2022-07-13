@@ -14,7 +14,7 @@ import {
 } from '../../store/slices/issuesSlice';
 import { Assignee, Issue as IIssue, Label } from '../../types';
 import IssueDescription from '../../components/issues/IssueDescription';
-import IssueSidebar from './IssueSidebar';
+import IssueSidebar from '../../components/issues/IssueSidebar';
 import { findAssignees } from '../../store/slices/assigneesSlice';
 import { findLabels } from '../../store/slices/labelsSlice';
 import { PATH_NOT_FOUND } from '../../routing/pathes';
@@ -150,7 +150,7 @@ const Issue = () => {
 
                   <IssueStatus
                     status={issue.state}
-                    authorName={issue.assignee.login}
+                    authorName={issue.user.login}
                     closedBy={issue.closed_by && issue.closed_by.login}
                     createdAt={issue.created_at}
                     closedAt={issue.closed_at}

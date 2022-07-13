@@ -1,9 +1,9 @@
 import { FormControl, InputLabel, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import AssigneeList from '../../components/assignees/AssigneeList';
-import AssigneeListWrapper from '../../components/assignees/AssigneeListWrapper';
-import LabelList from '../../components/labels/LabelList';
-import LabelListWrapper from '../../components/labels/LabelListWrapper';
+import AssigneeList from '../assignees/AssigneeList';
+import AssigneeListWrapper from '../assignees/AssigneeListWrapper';
+import LabelList from '../labels/LabelList';
+import LabelListWrapper from '../labels/LabelListWrapper';
 import { Assignee, Issue, Label } from '../../types';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useMemo, useState } from 'react';
@@ -97,7 +97,7 @@ const IssueEditForm = ({
           </InputLabel>
 
           <LabelListWrapper>
-            <LabelList labels={issue.labels} />
+            <LabelList labels={issue.labels} className="label-list" />
           </LabelListWrapper>
         </FormControl>
       )}

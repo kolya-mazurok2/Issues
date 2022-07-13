@@ -20,7 +20,7 @@ export interface Issue {
   body: string;
   state: State;
   number: number;
-  assignee: Assignee;
+  user: Assignee;
   assignees: Assignee[];
   labels: Label[];
   closed_by?: Assignee;
