@@ -151,8 +151,9 @@ const Issue = () => {
                   <IssueStatus
                     status={issue.state}
                     authorName={issue.assignee.login}
+                    closedBy={issue.closed_by && issue.closed_by.login}
                     createdAt={issue.created_at}
-                    updatedAt={issue.updated_at}
+                    closedAt={issue.closed_at}
                   />
                 </div>
 
