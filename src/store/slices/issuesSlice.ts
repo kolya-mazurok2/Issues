@@ -6,6 +6,7 @@ import {
   findAll,
   updateAssignees,
   updateLabels,
+  updateState,
   updateTitle,
 } from '../../services/http/issues/issues';
 import { DEFAULT_FIND_ALL_PARAMS, findAll as searchAll } from '../../services/http/search/methods';
@@ -142,6 +143,19 @@ export const updateIssueTitle = createAsyncThunk(
   }
 );
 
+interface UpdateIssueStateParams {
+  id: number;
+  state: StateType;
+}
+
+export const updateIssueState = createAsyncThunk(
+  'issues/updateState',
+  async ({ id, state }: UpdateIssueStateParams): Promise<Issue | null> => {
+    const response = await updateState(id, state);
+    return response.data.length ? response.data[0] : null;
+  }
+);
+
 export const createNewIssue = createAsyncThunk(
   'issues/create',
   async (newIssue: NewIssue): Promise<Issue | null> => {
@@ -257,6 +271,10 @@ const issuesSlice = createSlice({
     builder.addCase(createNewIssue.rejected, (state) => {
       state.loading = false;
       state.success = false;
+    });
+
+    builder.addCase(updateIssueState.fulfilled, (state, payload) => {
+      state.entity = payload.payload;
     });
   },
 });

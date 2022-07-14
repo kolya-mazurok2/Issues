@@ -112,6 +112,22 @@ export const updateTitle = async (id: number, title: string): Promise<HttpRespon
   }
 };
 
+export const updateState = async (id: number, state: State): Promise<HttpResponse> => {
+  try {
+    const response = await axiosIssues.patch(`issues/${id}`, {
+      state: state,
+    });
+
+    return { ...DEFAULT_HTTP_RESPONSE, data: [response.data] };
+  } catch (err) {
+    return {
+      ...DEFAULT_HTTP_RESPONSE,
+      success: false,
+      message: axios.isAxiosError(err) ? err.message : 'Something went wrong',
+    };
+  }
+};
+
 export const create = async (newIssue: NewIssue): Promise<HttpResponse> => {
   try {
     const response = await axiosIssues.post('issues', newIssue);
@@ -125,3 +141,4 @@ export const create = async (newIssue: NewIssue): Promise<HttpResponse> => {
     };
   }
 };
+

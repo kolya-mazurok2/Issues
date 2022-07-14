@@ -10,9 +10,10 @@ import {
   findIssue,
   updateIssueAssignees,
   updateIssueLabels,
+  updateIssueState,
   updateIssueTitle,
 } from '../../store/slices/issuesSlice';
-import { Assignee, Issue as IIssue, Label } from '../../types';
+import { Assignee, Issue as IIssue, Label, State } from '../../types';
 import IssueDescription from '../../components/issues/IssueDescription';
 import IssueSidebar from '../../components/issues/IssueSidebar';
 import { findAssignees } from '../../store/slices/assigneesSlice';
@@ -83,6 +84,14 @@ const Issue = () => {
         labels: labels,
       })
     );
+  };
+
+  const handleStateChange = (state: State) => {
+    dispatch(updateIssueState({ id: Number(params.id), state: state }));
+  };
+
+  const handleDelete = () => {
+    console.log(':( No API method to achieve this');
   };
 
   return (
@@ -173,6 +182,8 @@ const Issue = () => {
                   labels={labels}
                   onAssigneesChange={handleAssigneesChange}
                   onLabelsChange={handleLabelsChange}
+                  onStateChange={handleStateChange}
+                  onDelete={handleDelete}
                 />
               </Grid>
             </Grid>
