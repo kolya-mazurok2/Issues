@@ -6,9 +6,11 @@ import { Navigate } from 'react-router-dom';
 import Issue from '../pages/issues/Issue';
 import NotFound from '../pages/NotFound';
 import NotFoundWrapper from '../pages/NotFoundWrapper';
-import { PATH_HOME, PATH_ISSUES, PATH_ISSUES_NEW, PATH_NOT_FOUND } from './pathes';
+import { PATH_HOME, PATH_ISSUES, PATH_ISSUES_NEW, PATH_LABELS, PATH_NOT_FOUND } from './pathes';
 import IssueWrapper from '../pages/issues/IssueWrapper';
 import NewIssueWrapper from '../pages/issues/NewIssueWrapper';
+import Labels from '../pages/labels/Labels';
+import LabelsWrapper from '../pages/labels/LabelsWrapper';
 
 interface IAppRoutes {
   path: string;
@@ -42,6 +44,14 @@ const appRoutes: Array<IAppRoutes> = [
       <NewIssueWrapper>
         <NewIssue />
       </NewIssueWrapper>
+    ),
+  },
+  {
+    path: PATH_LABELS,
+    element: (
+      <LabelsWrapper>
+        <Labels />
+      </LabelsWrapper>
     ),
   },
   {

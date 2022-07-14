@@ -7,6 +7,12 @@ export interface Label {
   color: string;
 }
 
+export interface NewLabel {
+  name: string;
+  description?: string;
+  color: string;
+}
+
 export interface Assignee {
   id: number;
   login: string;
