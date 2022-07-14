@@ -39,3 +39,33 @@ header.nav-header {
   color: #fff;
   text-decoration: none;
 }
+
+.pages-menu {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.pages-menu .pages-menu--item {
+  display: inline-flex;
+  width: auto;
+}
+
+.label-form {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0;
+}
+
+.label-form > div {
+  margin-left: 20px;
+}
+
+.label-form > div:first-child {
+  margin-left: 0;
+}
+
+.label-form .react-colorful {
+  position: absolute;
+  top: 56px;
+  left: 0;
+}
