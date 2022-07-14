@@ -17,16 +17,12 @@ interface State {
   entity: Issue | null;
   entities: Issue[];
   totalEntities: number;
-  loading?: boolean;
-  success?: boolean;
 }
 
 const initialState: State = {
   entity: null,
   entities: [],
   totalEntities: 0,
-  loading: undefined,
-  success: undefined,
 };
 
 interface FindIssuesParams {
@@ -170,107 +166,32 @@ const issuesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(findIssues.fulfilled, (state, payload) => {
-      state.loading = false;
-      state.success = true;
       state.entities = payload.payload;
-    });
-    builder.addCase(findIssues.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(findIssues.rejected, (state) => {
-      state.loading = false;
-      state.success = false;
     });
 
     builder.addCase(findTotalIssues.fulfilled, (state, payload) => {
-      state.loading = false;
-      state.success = true;
       state.totalEntities = payload.payload;
-    });
-    builder.addCase(findTotalIssues.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(findTotalIssues.rejected, (state) => {
-      state.loading = false;
-      state.success = false;
     });
 
     builder.addCase(findIssuesComplex.fulfilled, (state, payload) => {
-      state.loading = false;
-      state.success = true;
       state.entities = payload.payload.entities;
       state.totalEntities = payload.payload.total;
     });
-    builder.addCase(findIssuesComplex.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(findIssuesComplex.rejected, (state) => {
-      state.loading = false;
-      state.success = false;
-    });
 
     builder.addCase(findIssue.fulfilled, (state, payload) => {
-      state.loading = false;
-      state.success = true;
       state.entity = payload.payload;
-    });
-    builder.addCase(findIssue.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(findIssue.rejected, (state) => {
-      state.loading = false;
-      state.success = false;
     });
 
     builder.addCase(updateIssueAssignees.fulfilled, (state, payload) => {
-      state.loading = false;
-      state.success = true;
       state.entity = payload.payload;
-    });
-    builder.addCase(updateIssueAssignees.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(updateIssueAssignees.rejected, (state) => {
-      state.loading = false;
-      state.success = false;
     });
 
     builder.addCase(updateIssueLabels.fulfilled, (state, payload) => {
-      state.loading = false;
-      state.success = true;
       state.entity = payload.payload;
-    });
-    builder.addCase(updateIssueLabels.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(updateIssueLabels.rejected, (state) => {
-      state.loading = false;
-      state.success = false;
     });
 
     builder.addCase(updateIssueTitle.fulfilled, (state, payload) => {
-      state.loading = false;
-      state.success = true;
       state.entity = payload.payload;
-    });
-    builder.addCase(updateIssueTitle.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(updateIssueTitle.rejected, (state) => {
-      state.loading = false;
-      state.success = false;
-    });
-
-    builder.addCase(createNewIssue.fulfilled, (state) => {
-      state.loading = false;
-      state.success = true;
-    });
-    builder.addCase(createNewIssue.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(createNewIssue.rejected, (state) => {
-      state.loading = false;
-      state.success = false;
     });
 
     builder.addCase(updateIssueState.fulfilled, (state, payload) => {
