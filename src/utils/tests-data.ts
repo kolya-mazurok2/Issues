@@ -20,7 +20,7 @@ export const DEFAULT_LABELS: Label[] = [
     id: 4297642975,
     name: 'bug',
     color: 'd73a4a',
-    description: "Something isn't working",
+    description: 'Something is not working',
   },
   {
     id: 4297642976,

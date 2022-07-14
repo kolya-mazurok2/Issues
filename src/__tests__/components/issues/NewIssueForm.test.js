@@ -4,8 +4,16 @@ import { DEFAULT_ASSIGNEES, DEFAULT_LABELS } from '../../../utils/tests-data';
 
 describe('Interacts with NewIssueForm', () => {
   it('Renders with all nom-empty props', () => {
+    const submitHandler = (issue) => {
+      console.log(issue);
+    };
+
     render(
-      <NewIssueForm assignees={DEFAULT_ASSIGNEES} labels={DEFAULT_LABELS} onChange={() => {}} />
+      <NewIssueForm
+        assignees={DEFAULT_ASSIGNEES}
+        labels={DEFAULT_LABELS}
+        onSubmit={submitHandler}
+      />
     );
 
     const titleWrapper = screen.getByTestId('title');

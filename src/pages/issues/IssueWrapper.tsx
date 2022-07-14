@@ -55,6 +55,12 @@ const IssueWrapper = styled.div`
         }
       }
     }
+
+    .sidebar {
+      .MuiScopedCssBaseline-root {
+        margin: 20px 0;
+      }
+    }
   }
 `;
 
