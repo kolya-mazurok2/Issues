@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import { Label } from '../../types';
 import EditLabelModalWrapper from './EditLabelModalWrapper';
 import LabelForm from './LabelForm';
+import LabelFormWrapper from './LabelFormWrapper';
 
 interface Props {
   label?: Label;
@@ -24,7 +25,9 @@ const EditLabelModal = ({ label, open, onUpdate, onClose }: Props) => {
     <Modal open={open} onClose={onClose}>
       <EditLabelModalWrapper>
         <Box>
-          <LabelForm label={label} onUpdate={handleUpdate} onCancel={handleCancel} />
+          <LabelFormWrapper>
+            <LabelForm label={label} onUpdate={handleUpdate} onCancel={handleCancel} />
+          </LabelFormWrapper>
         </Box>
       </EditLabelModalWrapper>
     </Modal>

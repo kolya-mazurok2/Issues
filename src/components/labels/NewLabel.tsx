@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import { useState } from 'react';
 import { NewLabel as INewLabel } from '../../types';
 import LabelForm from './LabelForm';
+import LabelFormWrapper from './LabelFormWrapper';
 
 interface Props {
   onCreate: (label: INewLabel) => void;
@@ -30,12 +31,14 @@ const NewLabel = ({ onCreate }: Props) => {
       </Button>
 
       {open && (
-        <LabelForm
-          onCreate={handleCreate}
-          onCancel={() => {
-            setOpen(!open);
-          }}
-        />
+        <LabelFormWrapper>
+          <LabelForm
+            onCreate={handleCreate}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          />
+        </LabelFormWrapper>
       )}
     </Box>
   );

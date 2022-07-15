@@ -5,7 +5,7 @@ import { TextField } from '@mui/material';
 
 type Props = FieldRenderProps<string>;
 
-const ColorPickerAdapter = ({ input, meta, ...rest }: Props) => {
+const ColorPickerAdapter = ({ input, ...rest }: Props) => {
   const [color, setColor] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -24,12 +24,12 @@ const ColorPickerAdapter = ({ input, meta, ...rest }: Props) => {
     <div className="color-picker">
       <TextField
         {...input}
-        {...meta}
         {...rest}
+        fullWidth
         value={color}
         disabled={true}
         onClick={() => {
-          setOpen(!open);
+          setOpen(true);
         }}
       />
 

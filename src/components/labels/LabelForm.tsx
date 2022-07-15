@@ -1,4 +1,4 @@
-import { Button, FormControl } from '@mui/material';
+import { Button, ButtonGroup, FormControl, Grid } from '@mui/material';
 import { FormApi } from 'final-form';
 import { TextField } from 'mui-rff';
 import { Field, Form } from 'react-final-form';
@@ -59,42 +59,46 @@ const LabelForm = ({ label, onCreate, onUpdate, onCancel }: Props) => {
       validate={validate}
       render={({ handleSubmit, form }) => (
         <form className="label-form" onSubmit={handleSubmit}>
-          <FormControl>
-            <TextField name="name" label="name" />
-          </FormControl>
+          <Grid container spacing={2}>
+            <Grid item lg={3} md={6} xs={12}>
+              <TextField name="name" label="name" />
+            </Grid>
 
-          <FormControl>
-            <TextField name="description" label="description" />
-          </FormControl>
+            <Grid item lg={3} md={6} xs={12}>
+              <TextField name="description" label="description" />
+            </Grid>
 
-          <FormControl>
-            <Field
-              name="color"
-              defaultValue={initialValues.color}
-              label="color"
-              component={ColorPickerAdapter}
-            />
-          </FormControl>
+            <Grid item lg={3} md={6} xs={12}>
+              <FormControl fullWidth>
+                <Field
+                  name="color"
+                  defaultValue={initialValues.color}
+                  label="color"
+                  component={ColorPickerAdapter}
+                />
+              </FormControl>
+            </Grid>
 
-          {onCancel && (
-            <FormControl>
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={() => {
-                  handleClickCancel(form);
-                }}
-              >
-                Cancel
-              </Button>
-            </FormControl>
-          )}
+            <Grid item lg={3} xs={12}>
+              <ButtonGroup>
+                {onCancel && (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() => {
+                      handleClickCancel(form);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                )}
 
-          <FormControl>
-            <Button type="submit" variant="outlined" color="success">
-              {onCreate ? 'Create' : 'Update'}
-            </Button>
-          </FormControl>
+                <Button type="submit" variant="outlined" color="success">
+                  {onCreate ? 'Create' : 'Update'}
+                </Button>
+              </ButtonGroup>
+            </Grid>
+          </Grid>
         </form>
       )}
     />

@@ -41,7 +41,12 @@ const AlertDialog = ({
 
   return (
     <div className="alert-dialog">
-      <Button variant="outlined" onClick={handleClickOpen} color={openButton.color}>
+      <Button
+        variant="outlined"
+        onClick={handleClickOpen}
+        color={openButton.color}
+        data-testid="open-button"
+      >
         {openButton.name}
       </Button>
 
@@ -50,15 +55,18 @@ const AlertDialog = ({
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        data-testid="dialog"
       >
         <DialogTitle id="alert-dialog-title">
           Are you sure? This action can not be undone!
         </DialogTitle>
 
         <DialogActions>
-          <Button onClick={handleClose}>Dismiss</Button>
+          <Button onClick={handleClose} data-testid="dismiss-button">
+            Dismiss
+          </Button>
 
-          <Button onClick={handleConfirmClick} autoFocus>
+          <Button onClick={handleConfirmClick} autoFocus data-testid="confirm-button">
             Yes
           </Button>
         </DialogActions>

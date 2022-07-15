@@ -7,9 +7,9 @@ interface Props {
 
 const NO_DESCRIPTION = 'No description provided';
 
-const IssueDescription = ({ description = NO_DESCRIPTION }: Props) => {
+const Description = ({ description = NO_DESCRIPTION }: Props) => {
   return (
-    <Card className="issue-description">
+    <Card className="issue-description" data-testid="description">
       <CardContent>
         <Markup content={description && description.length ? description : NO_DESCRIPTION} />
       </CardContent>
@@ -17,4 +17,4 @@ const IssueDescription = ({ description = NO_DESCRIPTION }: Props) => {
   );
 };
 
-export default IssueDescription;
+export default Description;

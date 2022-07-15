@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes } from 'react-router-dom';
 import Header from './components/UI/Header';
+import HeaderWrapper from './components/UI/HeaderWrapper';
 import { appRouteElements } from './routing';
 import store from './store';
 
@@ -13,7 +14,9 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <div className="App">
           <BrowserRouter>
-            <Header />
+            <HeaderWrapper>
+              <Header />
+            </HeaderWrapper>
 
             <Routes>{appRouteElements}</Routes>
           </BrowserRouter>

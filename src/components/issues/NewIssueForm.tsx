@@ -84,7 +84,7 @@ const NewIssueForm = ({ assignees = [], labels = [], onSubmit }: Props) => {
             </FormControl>
           )}
 
-          <Button type="submit" variant="outlined" color="success">
+          <Button type="submit" variant="outlined" color="success" data-testid="submit-button">
             Create New Issue
           </Button>
         </form>
