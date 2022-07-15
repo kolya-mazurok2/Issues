@@ -23,7 +23,7 @@ describe('Fetchs issue list', () => {
     expect(response.message).toEqual('Successfully fetched data');
   });
 
-  it('Receives all items', async () => {
+it('Receives all items', async () => {
     axiosInstance.get = jest.fn(() =>
       Promise.resolve({ ...DEFAULT_HTTP_RESPONSE, data: DEFAULT_ISSUES })
     );
@@ -34,7 +34,7 @@ describe('Fetchs issue list', () => {
     expect(response.message).toEqual('Successfully fetched data');
   });
 
-  it('Receives items with an open state', async () => {
+it('Receives items with an open state', async () => {
     const params = { ...DEFAULT_FIND_ALL_PARAMS, state: 'open' };
 
     const openIssues = DEFAULT_ISSUES.filter((issue) => {
@@ -52,7 +52,6 @@ describe('Fetchs issue list', () => {
     expect(response.data.length).toBe(1);
     expect(response.message).toEqual('Successfully fetched data');
   });
-
   it('Rejected with an axios error', async () => {
     axiosInstance.get = jest.fn(() => {
       throw new AxiosError('Request failed with status code 404');

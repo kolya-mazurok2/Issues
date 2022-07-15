@@ -41,7 +41,7 @@ const AlertDialog = ({
 
   return (
     <div className="alert-dialog">
-      <Button
+<Button
         variant="outlined"
         onClick={handleClickOpen}
         color={openButton.color}

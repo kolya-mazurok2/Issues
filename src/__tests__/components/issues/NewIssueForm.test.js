@@ -3,7 +3,7 @@ import NewIssueForm from '../../../components/issues/NewIssueForm';
 import { DEFAULT_ASSIGNEES, DEFAULT_LABELS } from '../../../utils/tests-data';
 
 describe('Interacts with NewIssueForm', () => {
-  const submitHandler = jest.fn();
+const submitHandler = jest.fn();
 
   it('Fails to submit an empty form', () => {
     render(
