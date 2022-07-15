@@ -1,6 +1,11 @@
 import axios, { AxiosError } from 'axios';
 import axiosInstance from '../../../../services/http/issues';
-import { DEFAULT_HTTP_RESPONSE, findAll } from '../../../../services/http/issues/issues';
+import {
+  DEFAULT_HTTP_RESPONSE,
+  DEFAULT_FIND_ALL_PARAMS,
+  findAll,
+} from '../../../../services/http/issues/issues';
+import { DEFAULT_ISSUES } from '../../../../utils/tests-data';
 
 jest.mock('../../../../services/http/issues');
 
@@ -18,14 +23,33 @@ describe('Fetchs issue list', () => {
     expect(response.message).toEqual('Successfully fetched data');
   });
 
-  it('Issue list with 2 items', async () => {
+  it('Receives all items', async () => {
     axiosInstance.get = jest.fn(() =>
-      Promise.resolve({ ...DEFAULT_HTTP_RESPONSE, data: [{}, {}] })
+      Promise.resolve({ ...DEFAULT_HTTP_RESPONSE, data: DEFAULT_ISSUES })
     );
     const response = await findAll();
 
     expect(response.success).toEqual(true);
     expect(response.data.length).toBe(2);
+    expect(response.message).toEqual('Successfully fetched data');
+  });
+
+  it('Receives items with an open state', async () => {
+    const params = { ...DEFAULT_FIND_ALL_PARAMS, state: 'open' };
+
+    const openIssues = DEFAULT_ISSUES.filter((issue) => {
+      return issue.state === 'open';
+    });
+
+    const findAll = jest.fn(() => {
+      return Promise.resolve({ ...DEFAULT_HTTP_RESPONSE, data: openIssues });
+    });
+
+    const response = await findAll({ ...DEFAULT_FIND_ALL_PARAMS, state: 'open' });
+
+    expect(findAll).toHaveBeenCalledWith(params);
+    expect(response.success).toEqual(true);
+    expect(response.data.length).toBe(1);
     expect(response.message).toEqual('Successfully fetched data');
   });
 

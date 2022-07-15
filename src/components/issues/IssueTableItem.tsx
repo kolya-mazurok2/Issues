@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import { PATH_ISSUES } from '../../routing/pathes';
 import { Issue } from '../../types';
 import AssigneeAvatarList from '../assignees/AssigneeAvatarList';
+import FlexContainer from '../FlexContainer';
 import LabelList from '../labels/LabelList';
 import LabelListWrapper from '../labels/LabelListWrapper';
 import IssueStatus from './IssueStatus';
@@ -15,15 +16,17 @@ const IssueTableItem = ({ item }: Props) => {
   return (
     <div className="issues-table--item">
       <Box className="main-info">
-        <Typography variant="subtitle1">
-          <Link href={`${PATH_ISSUES}${item.number}`}>{item.title}</Link>
+        <FlexContainer>
+          <Typography variant="subtitle1">
+            <Link href={`${PATH_ISSUES}${item.number}`}>{item.title}</Link>
+          </Typography>
 
-          <LabelListWrapper display="inline">
-            <LabelList labels={item.labels} className="label-list label-list_inline" />
-          </LabelListWrapper>
-        </Typography>
+          {item.assignees.length > 0 && <AssigneeAvatarList assignees={item.assignees} />}
+        </FlexContainer>
 
-        {item.assignees.length > 0 && <AssigneeAvatarList assignees={item.assignees} />}
+        <LabelListWrapper display="inline">
+          <LabelList labels={item.labels} className="label-list label-list_inline" />
+        </LabelListWrapper>
       </Box>
       <IssueStatus
         status={item.state}

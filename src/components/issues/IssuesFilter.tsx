@@ -47,7 +47,7 @@ const IssuesFilter = ({
   };
 
   return (
-    <Box typography="form">
+    <Box typography="form" className="issue-filter">
       <FormControl sx={{ minWidth: 250 }}>
         <InputLabel>State</InputLabel>
 

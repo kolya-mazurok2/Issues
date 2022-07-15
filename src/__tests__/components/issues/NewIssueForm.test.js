@@ -3,11 +3,9 @@ import NewIssueForm from '../../../components/issues/NewIssueForm';
 import { DEFAULT_ASSIGNEES, DEFAULT_LABELS } from '../../../utils/tests-data';
 
 describe('Interacts with NewIssueForm', () => {
-  it('Renders with all nom-empty props', () => {
-    const submitHandler = (issue) => {
-      console.log(issue);
-    };
+  const submitHandler = jest.fn();
 
+  it('Fails to submit an empty form', () => {
     render(
       <NewIssueForm
         assignees={DEFAULT_ASSIGNEES}
@@ -16,29 +14,47 @@ describe('Interacts with NewIssueForm', () => {
       />
     );
 
+    const submitButton = screen.getByTestId('submit-button');
     const titleWrapper = screen.getByTestId('title');
     const titleInput = titleWrapper.querySelector('input');
-    expect(titleInput.value).toBe('');
-    fireEvent.change(titleInput, { target: { value: 'New issuee from the app' } });
-    expect(titleInput.value).toBe('New issuee from the app');
 
-    const bodyWrapper = screen.getByTestId('body');
-    const bodyTextarea = bodyWrapper.querySelector('textarea');
-    fireEvent.change(bodyTextarea, { target: { value: 'New issue description' } });
-    expect(bodyTextarea.value).toBe('New issue description');
+    fireEvent(
+      submitButton,
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
 
-    const assigneesWrapper = screen.getByTestId('assignees');
-    const assigneesSelect = assigneesWrapper.querySelector('input');
-    expect(assigneesSelect.value).toEqual('');
+    expect(submitHandler).not.toHaveBeenCalled();
+    expect(titleInput.value).toEqual('');
+    expect(titleWrapper.querySelector('.Mui-error')).not.toBe(null);
+  });
 
-    const labelsWrappers = screen.getAllByTestId('label');
-    const labelsCheckboxes = labelsWrappers.map((labelWrapper) => {
-      return labelWrapper.querySelector('input');
-    });
-    fireEvent.change(labelsCheckboxes[0], { target: { checked: true } });
-    fireEvent.change(labelsCheckboxes[1], { target: { checked: true } });
-    expect(labelsCheckboxes[0].checked).toBe(true);
-    expect(labelsCheckboxes[1].checked).toBe(true);
-    expect(labelsCheckboxes[2].checked).toBe(false);
+  it('Submits a form with manually entered title', () => {
+    render(
+      <NewIssueForm
+        assignees={DEFAULT_ASSIGNEES}
+        labels={DEFAULT_LABELS}
+        onSubmit={submitHandler}
+      />
+    );
+
+    const submitButton = screen.getByTestId('submit-button');
+    const titleWrapper = screen.getByTestId('title');
+    const titleInput = titleWrapper.querySelector('input');
+
+    fireEvent.change(titleInput, { target: { value: 'New Issue' } });
+
+    fireEvent(
+      submitButton,
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+
+    expect(titleInput.value).toEqual('New Issue');
+    expect(submitHandler).toHaveBeenCalledTimes(1);
   });
 });

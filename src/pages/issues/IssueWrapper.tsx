@@ -42,16 +42,32 @@ const IssueWrapper = styled.div`
       }
     }
 
-    .title-edit {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+    .editable-title {
+      .title {
+        display: flex;
+        flex-wrap: wrap;
 
-      &--item {
-        &:first-child {
-          width: calc(100% - 200px);
+        h4 {
+          flex: 1 0 calc(100% - 100px);
+        }
+
+        button {
+          flex: 1 0 80px;
+        }
+      }
+
+      .title-edit {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        & > div:first-child {
+          flex: 1 0 calc(100% - 200px);
+        }
+
+        & > div:last-child {
+          flex: 1 0 200px;
+          justify-content: end;
         }
       }
     }
