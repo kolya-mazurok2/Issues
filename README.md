@@ -12,3 +12,5 @@ React pet project whose primary purpose is to show skills working with React and
 - axios
 - moment
 - styled components
+
+!!! GitHub Issue API doesn't allow headers such Cache: 'no-cache', this is affecting some endpoints to load fresh data ( see network tab in devtools for "load from disk space")
